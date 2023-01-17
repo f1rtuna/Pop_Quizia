@@ -32,7 +32,10 @@ function App() {
   if (loading) return <Loading />
   return (
     <div className = "quiz-container">
-      {started ? <QuizPage />
+      {started ? <QuizPage 
+                  questions = {questions}
+                  />
+                  
                : <HomePage 
                   // started = {started}
                   start_game = {start_game}
