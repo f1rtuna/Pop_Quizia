@@ -1,20 +1,15 @@
 import React from 'react'
 
-export default function Quiz({incorrectAnswers, correctAnswer, question, decodeString}) {
-    const options = [decodeString(correctAnswer)]
-    for (let i = 0; i < incorrectAnswers.length; i++){
-      options.push(decodeString(incorrectAnswers[i]))
-    }
-    // function checkAnswer(){
-    //     correct === o.correct ? console.log("correct!") : console.log("nope")
-    // }
-    console.log(question)
+export default function Quiz({answers, correctAnswer, question, decodeString, checkAnswer}) {
+    const answerElements = answers.map(answer => {
+        return <button className = "answers" onClick={() => checkAnswer(answer, correctAnswer)}>{decodeString(answer)}</button>
+    })
     return (
         <>
-            <div>{decodeString(question)}</div>
-            {/* <div className = "options">
-                {options}
-            </div> */}
+            <div className = "question">{decodeString(question)}</div>
+            <div className = "options">
+                {answerElements}
+            </div>
         </>
         
     )

@@ -2,27 +2,28 @@ import React from 'react'
 import Quiz from "./Quiz"
 
 export default function QuizPage({questions}) {
-
+  console.log(questions)
   function decodeString(str) {
     const textArea = document.createElement('textarea')
     textArea.innerHTML= str
     return textArea.value
   }
 
-  const quizElements = questions.map(question => {
+  function checkAnswer(answer, correct_answer){
+    if(answer === correct_answer){
+      console.log("correct!")
+    }
+  }
 
+  const quizElements = questions.map(question => {
     return <Quiz 
             key={question.id}
             id={question.id}
             question={question.question}
             correctAnswer={question.correct_answer}
-            incorrectAnswers={question.incorrect_answers}
-            // difficulty={question.difficulty}
-            // category={question.category}
-            // selectedAnswer={question.selectedAnswer}
-            // showAnswer={question.showAnswer}
-            // handleSelectAnswer={handleSelectAnswer}
+            answers={question.answers}
             decodeString = {decodeString}
+            checkAnswer = {checkAnswer}
             />
 
   })
@@ -30,7 +31,7 @@ export default function QuizPage({questions}) {
   console.log(quizElements)
   
   return (
-    <div className = "quiz-container">
+    <div className = "quiz-boxes">
       {quizElements}
     </div>
         
