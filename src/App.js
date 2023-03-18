@@ -8,46 +8,48 @@ import './App.css';
 // https://opentdb.com/api.php?amount=10
 
 function App() {
+  const length = 10;
   const [started, setStarted] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [quiz, setQuiz] = useState("https://opentdb.com/api.php?amount=10")
+  const [quizLink, setQuizLink] = useState(`https://opentdb.com/api.php?amount=${length}`)
   const [questions, setQuestions] = useState([])
-  // try to get 5 questions per each page here 0->5 initially
-  const [indexes, setIndexes] = useState([0,5]) 
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [score, setScore] = useState(0)
 
   useEffect(() =>{
     setLoading(false)
-    axios.get(quiz)
+    axios.get(quizLink)
       .then(res => res.data)
       .then(data => {
-        const questions = data.results.map((question) => ({
-          ...question,
-          answers:[question.correct_answer, ...question.incorrect_answers].sort(() => Math.random() - 0.5)
-        }))
-        setQuestions(questions)
+        setQuestions(data.results)
       });
   },[])
-  // useEffect(() =>{
-  //   setLoading(false)
-  //   axios.get(quiz).then(res =>{
-  //     setQuestions(res.data.results.map(q => {
-  //       return {...q,
-  //             id: nanoid(),
-  //             reveal: false,
-  //             questions: []}
-  //     }))
-  //   })
-  // }, [])
+
+  console.log("questions: ")
+  console.log(questions)
 
   function start_game(){
     setStarted(true)
+  }
+
+  function checkAnswer(response){
+    if (response === questions[currentIndex].correct_answer){
+      console.log("Correct!")
+      setScore(prev => prev + 1)
+      // setCurrentIndex(prev => prev + 1)
+    } else{
+      console.log("nope!")
+    }
+    setCurrentIndex(prevIndex => prevIndex + 1)
   }
 
   if (loading) return <Loading />
   return (
     <div className = "quiz-container">
       {started ? <QuizPage
-                  questions = {questions.slice(indexes[0], indexes[1])}
+                  id = {nanoid()}
+                  checkAnswer = {checkAnswer}
+                  question = {questions[currentIndex]}
                   />
                : <HomePage 
                   // started = {started}
