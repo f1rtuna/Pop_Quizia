@@ -21,7 +21,7 @@ export default function QuizPage({question, checkAnswer}){
   allAnswers = shuffle(allAnswers)
 
   return (
-    <>
+    <div className="question-container">
       <div className="questionTitle">
         <h1 dangerouslySetInnerHTML={{__html:question.question}}></h1>
       </div>
@@ -31,6 +31,6 @@ export default function QuizPage({question, checkAnswer}){
         <button className = "choice" onClick = {() => checkAnswer(allAnswers[2])} dangerouslySetInnerHTML={{__html:allAnswers[2]}}></button>
         <button className = "choice" onClick = {() => checkAnswer(allAnswers[3])} dangerouslySetInnerHTML={{__html:allAnswers[3]}}></button>
       </div>
-    </>
+    </div>
   )
 }

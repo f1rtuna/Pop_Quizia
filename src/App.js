@@ -46,11 +46,13 @@ function App() {
   if (loading) return <Loading />
   return (
     <div className = "quiz-container">
-      {started ? <QuizPage
+      {started ? (currentIndex < questions.length ? <QuizPage
                   id = {nanoid()}
                   checkAnswer = {checkAnswer}
                   question = {questions[currentIndex]}
-                  />
+                  /> : <div>
+                      {`Congrats you finished the Quiz! you scored: ${score}`}
+                    </div>)
                : <HomePage 
                   // started = {started}
                   start_game = {start_game}
