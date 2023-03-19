@@ -89,6 +89,15 @@ function App() {
     setSelected3("choice")
   }
 
+  function restart(){
+    setQuizLink(quizLink)
+    setShowAnswers(false)
+    setCurrentIndex(0)
+    setSelected0("choice")
+    setSelected1("choice")
+    setSelected2("choice")
+    setSelected3("choice")
+  }
 
   if (loading) return <Loading />
   return (
@@ -105,9 +114,10 @@ function App() {
                   show4 = {questions[currentIndex].answers.length>2}
                   selected2 = {selected2}
                   selected3 = {selected3}
+                  restart = {restart}
                 /> : (<div className = "gameOver">
                       {`Congrats you finished the Quiz! you scored: ${score}`}
-                      <button>Try Again!</button>
+                      <button onClick = {restart}>Try Again!</button>
                     </div>))
                : <HomePage 
                   // started = {started}

@@ -1,7 +1,7 @@
 import { all } from "axios"
 import React, {useState} from "react"
 
-export default function QuizPage({question, checkAnswer, handleNextQuestion, showAnswers, selected0, selected1, selected2, selected3, handleSelected, show4}){
+export default function QuizPage({question, checkAnswer, handleNextQuestion, showAnswers, selected0, selected1, selected2, selected3, handleSelected, show4, restart}){
   
   let allAnswers = question.answers
 
